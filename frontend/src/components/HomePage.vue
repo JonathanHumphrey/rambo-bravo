@@ -26,9 +26,15 @@ export default defineComponent({
         class="icon"
       />
       <div class="button-group">
-        <nav>
-          <router-link class="blend-in" to="/search">Search</router-link>
-        </nav>
+        <router-link to="/search">
+          <button class="blend-in">Search</button></router-link
+        >
+        <router-link to="/creatures">
+          <button class="blend-in">Creatures</button></router-link
+        >
+        <router-link to="/search">
+          <button class="blend-in">Items</button></router-link
+        >
       </div>
       <router-view></router-view>
     </div>
@@ -49,7 +55,7 @@ export default defineComponent({
   background: #75462f;
   display: flex;
   flex-direction: column;
-  height: 75vh;
+  min-height: 75vh;
   width: 80%;
   animation: breathing 4s infinite;
   justify-content: center;
@@ -61,15 +67,18 @@ export default defineComponent({
   position: absolute;
   top: 47%;
 
-  width: 955px;
+  width: 960px;
   display: flex;
   justify-content: space-between;
 }
+
 .blend-in {
   background: #44c9e7;
 
   border-radius: 100%;
   height: 3rem;
+  width: 4rem;
+  padding: 0.1rem;
   border: none;
   cursor: pointer;
   text-align: center;
