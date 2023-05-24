@@ -32,7 +32,7 @@ export default defineComponent({
         <router-link to="/creatures">
           <button class="blend-in">Creatures</button></router-link
         >
-        <router-link to="/search">
+        <router-link to="/items">
           <button class="blend-in">Items</button></router-link
         >
       </div>

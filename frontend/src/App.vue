@@ -31,11 +31,12 @@ export default {
   align-items: center;
   letter-spacing: 0px;
   font-size: 1.5rem;
+  overflow-x: hidden;
 }
 html {
   background: #392d2e;
   height: 100%;
-  width: 100vw;
+  width: 100%;
 }
 .button-group {
   position: absolute;

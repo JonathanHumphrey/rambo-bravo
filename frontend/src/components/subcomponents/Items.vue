@@ -1,10 +1,12 @@
 <script>
+import { defineComponent } from "vue";
+
 import Modal from "./Modal.vue";
 
-export default {
+export default defineComponent({
   data() {
     return {
-      creatures: [],
+      items: [],
       dataLoaded: false,
       selectedItem: null,
       showModal: false,
@@ -15,38 +17,28 @@ export default {
   },
   methods: {
     fetchData() {
-      fetch("https://botw-compendium.herokuapp.com/api/v2/category/creatures")
+      fetch("https://botw-compendium.herokuapp.com/api/v2/category/materials")
         .then((response) => response.json())
         .then((data) => {
-          this.creatures = data.data;
-          this.creatures["food"].sort();
-          this.creatures.non_food.sort();
+          console.log(data.data);
+          this.items = data.data;
           this.dataLoaded = true;
-          console.log(this.creatures["food"]);
+          console.log(this.items);
         })
         .catch((error) => {
-          console.error(error);
+          console.log(error);
         });
     },
     handleItemClick(id) {
-      let food = this.creatures.food;
-      let non_food = this.creatures.non_food;
-      food.forEach((element) => {
-        if (element.id === id) {
-          this.selectedItem = element;
+      this.items.forEach((item) => {
+        if (item.id === id) {
+          this.selectedItem = item;
+          this.openModal();
         }
       });
-      non_food.forEach((element) => {
-        if (element.id === id) {
-          this.selectedItem = element;
-        }
-      });
-      console.log(this.selectedItem);
-      this.openModal();
     },
     openModal() {
       this.showModal = true;
-      console.log(this.showModal);
     },
     closeModal() {
       this.showModal = false;
@@ -55,9 +47,8 @@ export default {
   components: {
     Modal,
   },
-};
+});
 </script>
-
 <template>
   <div class="body-container">
     <Modal
@@ -66,34 +57,19 @@ export default {
       @close-modal="closeModal"
     />
     <div v-if="dataLoaded">
-      <h3>Food</h3>
+      <h3>Items</h3>
       <ul class="list">
         <li
-          v-for="creature in creatures.food"
-          :key="creature.id"
-          @click="handleItemClick(creature.id)"
+          v-for="item in items"
+          :key="item.id"
+          @click="handleItemClick(item.id)"
         >
-          {{ creature.name }}
+          {{ item.name }}
         </li>
       </ul>
     </div>
-    <div v-if="dataLoaded">
-      <h3>Non Food</h3>
-      <ul class="list">
-        <li
-          v-for="creature in creatures.non_food"
-          :key="creature.id"
-          @click="handleItemClick(creature.id)"
-        >
-          {{ creature.name }}
-        </li>
-      </ul>
-    </div>
-    <p v-else>Loading...</p>
   </div>
 </template>
-  
-
 
 <style scoped>
 .body-container {
